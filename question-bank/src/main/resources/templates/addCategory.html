@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Add Category</title>
+</head>
+<body>
+    <div align="center" class="mt-5">
+        <h2>Add Category</h2>
+
+        <form method="post" action="/category/save" th:object="${category}" class="p-5 mb-4 bg-light rounded-3">
+            <div class="form-group row">
+                <label class="col-sm2 col-form-label font-weight-bold">Subject</label>
+                <div class="col-sm2">
+                    <input type="text" class="form-control" th:field="*{subject}" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm2 col-form-label font-weight-bold">Exam Type</label>
+                <div class="col-sm2">
+                    <input type="text" class="form-control" th:field="*{examType}" required>
+                </div>
+            </div>
+            <br>
+
+            <div align="center form-group row">
+                <button type="submit" class="btn btn-dark">ADD</button>
+                <a href="javascript:history.back()">CANCEL</a>
+            </div>
+        </form>
+</body>
+</html>

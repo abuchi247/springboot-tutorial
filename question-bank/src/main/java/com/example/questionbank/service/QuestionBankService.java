@@ -22,11 +22,41 @@ public class QuestionBankService implements IQuestionBankService {
 
     @Override
     public List<Category> fetchAllCategories() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAllByOrderByCategoryId();
     }
 
     @Override
     public List<QuestionAnswers> fetchAllQuestionAndAnswers() {
-        return questionAnswersRepository.findAll();
+        return questionAnswersRepository.findAllByOrderByQuestionId();
+    }
+
+    @Override
+    public void saveCategory(Category category) {
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public void saveQuestion(QuestionAnswers questionAnswer) {
+        questionAnswersRepository.save(questionAnswer);
+    }
+
+    @Override
+    public void deleteQuestion(String questionId) {
+        questionAnswersRepository.deleteById(Long.valueOf(questionId));
+    }
+
+    @Override
+    public void deleteCategory(String categoryId) {
+        categoryRepository.deleteById(Long.valueOf(categoryId));
+    }
+
+    @Override
+    public Category fetchCategory(String categoryId) {
+        return categoryRepository.findById(Long.valueOf(categoryId)).orElse(null);
+    }
+
+    @Override
+    public QuestionAnswers fetchQuestionAnswer(String questionId) {
+        return questionAnswersRepository.findById(Long.valueOf(questionId)).orElse(null);
     }
 }
