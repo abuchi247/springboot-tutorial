@@ -14,7 +14,7 @@ public class QuestionBankUIController {
     @Autowired
     private QuestionBankService questionBankService;
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     public String homepage() {
         return "index";
     }
