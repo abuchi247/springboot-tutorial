@@ -1,4 +1,4 @@
-package com.example.questionbank.service;
+package com.example.questionbank.models;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -6,15 +6,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
 
-    private String userName;
+    private String username;
+    private String password;
+    private boolean active;
+    private List<GrantedAuthority> authorityList;
 
     public MyUserDetails() {}
 
-    public MyUserDetails(String username) {
-        this.userName = username;
+    public MyUserDetails(Users user, Role role) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.active = user.getActive();
+        this.authorityList = Arrays.stream(new String[]{role.getName()})
+                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     /**
@@ -22,7 +32,7 @@ public class MyUserDetails implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorityList;
     }
 
     /**
@@ -30,7 +40,7 @@ public class MyUserDetails implements UserDetails {
      */
     @Override
     public String getPassword() {
-        return "pass";
+        return password;
     }
 
     /**
@@ -38,7 +48,7 @@ public class MyUserDetails implements UserDetails {
      */
     @Override
     public String getUsername() {
-        return this.userName;
+        return username;
     }
 
     /**
@@ -70,6 +80,6 @@ public class MyUserDetails implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
 }
