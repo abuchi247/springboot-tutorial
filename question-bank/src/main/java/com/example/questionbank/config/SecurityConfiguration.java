@@ -84,7 +84,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("static/css/**", "static/js/**", "/images/**").permitAll() // all everyone to have access to this
 //
 //                .hasAnyRole("ADMIN") // anyone with these roles
-                .and().formLogin(); // form based login
+                .and()
+                .formLogin() // form based login
+                .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout().permitAll()
+                .and()
+                .oauth2Login()
+                .loginPage("/login");
+
 
     }
 }
