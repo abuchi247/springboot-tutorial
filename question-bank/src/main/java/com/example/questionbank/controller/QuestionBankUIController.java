@@ -14,7 +14,7 @@ public class QuestionBankUIController {
     @Autowired
     private QuestionBankService questionBankService;
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String homepage() {
         return "index";
     }
@@ -22,7 +22,7 @@ public class QuestionBankUIController {
     @GetMapping("/category")
     public String showAllCategories(Model model) {
         model.addAttribute("categories", questionBankService.fetchAllCategories());
-        return "categories";
+        return "category";
     }
 
     @GetMapping("/questions")
