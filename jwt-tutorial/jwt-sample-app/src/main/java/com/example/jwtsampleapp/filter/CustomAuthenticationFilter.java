@@ -2,6 +2,7 @@ package com.example.jwtsampleapp.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.jwtsampleapp.utils.Helper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -67,7 +68,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         // access the user has successfully logged in
         User user = (User)authResult.getPrincipal();
         // should be something we load from a utility file - NOT in production
-        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+        Algorithm algorithm = new Helper().getAlgorithm();
         String access_token = JWT.create()
                 .withSubject(user.getUsername()) // something to be used to identify the user
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) // want it to expire in 10mins
